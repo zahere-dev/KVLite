@@ -1,6 +1,8 @@
 # KVLite
 
-KVLite is a Key-Value store implemented in C# as a learning project. It provides a simplified version of a Redis-like in-memory database with basic features. Please note that KVLite is intended for educational purposes and is not suitable for production use.
+KVLite is a Key-Value store implemented in C# as a learning project. It provides a simplified version of a Redis-like in-memory database with basic features.
+
+ **Please note that KVLite is intended for educational purposes and is not suitable for production use.**
 
 ## Features
 
@@ -23,3 +25,4 @@ KVLite is released under the MIT License. See the LICENSE file for details.
 
 ## Disclaimer
 KVLite is an educational project and should not be used in production environments. It lacks advanced features, robustness, and proper error handling. It is meant for learning and experimentation purposes only.
+
