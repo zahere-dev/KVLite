@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KVLite", "KVLite.csproj", "{D51FF06D-B2D5-49B8-B284-D5D7024F9CF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KVLite.Console", "KVLite.Console\KVLite.Console.csproj", "{D51FF06D-B2D5-49B8-B284-D5D7024F9CF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KVLite.Core", "KVLite.Core\KVLite.Core.csproj", "{939AD866-DCB3-46AF-982B-5F9FD425C4A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KVLite.Tests", "KVLite.Tests\KVLite.Tests.csproj", "{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{D51FF06D-B2D5-49B8-B284-D5D7024F9CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D51FF06D-B2D5-49B8-B284-D5D7024F9CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D51FF06D-B2D5-49B8-B284-D5D7024F9CF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{939AD866-DCB3-46AF-982B-5F9FD425C4A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{939AD866-DCB3-46AF-982B-5F9FD425C4A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{939AD866-DCB3-46AF-982B-5F9FD425C4A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{939AD866-DCB3-46AF-982B-5F9FD425C4A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
