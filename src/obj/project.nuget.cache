@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "q7re5exlsZ649g2YJC/j3x/IZajDUpw1kgSYiQGNAzLRgW5CaAe/13HRdFrrSl3v2PIdUrN2OcnHc6o+5UrKow==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Zahiruddin_T\\Documents\\Experiments\\KVLite\\src\\KVLite\\KVLite.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://dcsartifacts.dell.com/artifactory/api/nuget/nuget'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
+}
