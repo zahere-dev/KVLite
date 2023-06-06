@@ -7,6 +7,7 @@ var kvStore = new KeyValueStore();
 kvStore.Set("testKey", "testValue");
 
 var value = kvStore.Get("testKey");
-Console.WriteLine(value);   
+Console.WriteLine(value);
+
 Console.ReadLine();
                 
