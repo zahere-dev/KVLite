@@ -8,7 +8,7 @@ namespace KVLite.Client
         private const int Port = 6377;
         private const string Host = "localhost";
 
-        public void Set(string key, string value)
+        public static void Set(string key, string value)
         {
             try
             {
@@ -17,7 +17,9 @@ namespace KVLite.Client
                 using (var writer = new StreamWriter(stream, Encoding.ASCII))
                 using (var reader = new StreamReader(stream, Encoding.ASCII))
                 {
-                    string command = $"*3\r\n$3\r\nSET\r\n${key.Length}\r\n{key}\r\n${value.Length}\r\n{value}\r\n";
+                    string obj = $"{{\"Operation\": \"SET\", \"key\": \"{key}\", \"value\": \"{value}\"}}";
+
+                    string command = $"{{\"Operation\": \"SET\", \"key\": \"{key}\", \"value\": {obj}}}";
                     writer.Write(command);
                     writer.Flush();
 
