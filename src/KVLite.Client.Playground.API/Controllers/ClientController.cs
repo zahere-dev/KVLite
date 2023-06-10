@@ -7,15 +7,14 @@ namespace KVLite.Client.Playground.API.Controllers
 {
     [Route("api/[controller]")]
     public class ClientController : Controller
-    {
-        
+    {        
 
         [HttpGet]
         [Route("set")]
-        public IActionResult Set([FromQuery] string key, string value)
+        public IActionResult Set([FromQuery] string key, string value, string ttl)
         {
             var client = new KVLiteClient();
-            var res = client.Set(key, value);
+            var res = client.Set(key, value, ttl);
             client.Dispose();
             return Ok(res);
         }

@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KVLite.Core.Parser
 {
@@ -23,22 +17,29 @@ namespace KVLite.Core.Parser
             public string Operation { get; set; }
             public string Key { get; set; }
             public Object Value { get; set; }
+            public string Ttl { get; set; }
         }
 
+        /// <summary>
+        /// Parses the input string into a Command object.
+        /// </summary>
+        /// <param name="input">The input string to parse.</param>
+        /// <returns>A Command object representing the parsed input.</returns>
         public Command Parse(string input)
         {
             var command = new Command();
+
             try
-            {                
+            {
                 command = JsonConvert.DeserializeObject<Command>(input);
             }
             catch (Exception e)
             {
-
                 Console.WriteLine(e);
             }
 
             return command;
         }
+
     }
 }

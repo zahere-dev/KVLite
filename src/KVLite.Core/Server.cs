@@ -1,17 +1,16 @@
-﻿using KVLite.Core.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿using KVLite.Core.Models;
 using KVLite.Core.Parser;
+using KVLite.Core.Storage;
 using Newtonsoft.Json;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 
 namespace KVLite.Core
 {
+    /// <summary>
+    /// Represents a server that listens for incoming connections and handles client requests.
+    /// </summary>
     public class Server
     {
         private const int Port = 6377;
@@ -25,6 +24,9 @@ namespace KVLite.Core
             listener = new TcpListener(IPAddress.Any, Port);
         }
 
+        /// <summary>
+        /// Starts the server and listens for incoming connections.
+        /// </summary>
         public void Start()
         {
             listener.Start();
@@ -35,37 +37,14 @@ namespace KVLite.Core
                 var client = listener.AcceptTcpClient();
                 HandleClient(client);
             }
-            //while (true)   //we wait for a connection
-            //{
-            //    TcpClient client = listener.AcceptTcpClient();  //if a connection exists, the server will accept it
-
-            //    NetworkStream ns = client.GetStream(); //networkstream is used to send/receive messages
-            //    var reader = new StreamReader(ns, Encoding.UTF8);
-            //    var writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true };
-
-            //    byte[] hello = new byte[100];   //any message must be serialized (converted to byte array)
-            //    hello = Encoding.Default.GetBytes("hello world");  //conversion string => byte array
-
-            //    ns.Write(hello, 0, hello.Length);     //sending the message
-            //    string request;
-            //    while ((request = reader.ReadLine()) != null)  //while the client is connected, we look for incoming messages
-            //    {
-            //        byte[] buffer = new byte[1024];
-            //        int bytesRead = ns.Read(buffer, 0, buffer.Length);
-            //        byte[] receivedData = new byte[bytesRead];
-            //        Array.Copy(buffer, receivedData, bytesRead);
-
-            //        var receivedString = Encoding.Default.GetString(receivedData);
-            //        Console.WriteLine(receivedString);
-
-            //        Object response = ProcessRequest(receivedString);
-            //        byte[] encodedResponse = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(response));
-            //        ns.Write(encodedResponse, 0, encodedResponse.Length);
-
-            //    }
-            //}
+            // The server will keep running indefinitely until manually stopped.
+            // Make sure to handle any necessary cleanup or termination logic.
         }
 
+        /// <summary>
+        /// Handles the communication with a connected client.
+        /// </summary>
+        /// <param name="client">The TcpClient representing the connected client.</param>
         private void HandleClient(TcpClient client)
         {
             try
@@ -74,59 +53,47 @@ namespace KVLite.Core
                 var reader = new StreamReader(stream, Encoding.UTF8);
                 var writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true };
 
-                string request;
-                //while (client.Connected)
-                //{
-                //    try
-                //    {
-                //        byte[] buffer = new byte[1024];
-                //        int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                //        byte[] receivedData = new byte[bytesRead];
-                //        Array.Copy(buffer, receivedData, bytesRead);
-
-                //        var receivedString = Encoding.Default.GetString(receivedData);
-                //        Console.WriteLine(receivedString);
-
-                //        Object response = ProcessRequest(receivedString);
-                //        byte[] encodedResponse = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(response));
-                //        stream.Write(encodedResponse, 0, encodedResponse.Length);
-                //    }
-                //    catch (Exception e)
-                //    {
-                //        Console.WriteLine(e);
-                //    }
-                //}
-
                 while (client.Connected)
                 {
                     try
                     {
                         if (!stream.DataAvailable)
                             break;
+
+                        
                         var receivedData = ReadCompleteMessage(stream);
                         var receivedString = Encoding.UTF8.GetString(receivedData);
                         Console.WriteLine(receivedString);
 
                         Object response = ProcessRequest(receivedString);
+
+                        
                         var encodedResponse = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(response));
                         stream.Write(encodedResponse, 0, encodedResponse.Length);
                     }
                     catch (Exception e)
                     {
+                        
                         Console.WriteLine(e);
                     }
                 }
 
-
+                // Close the client connection
                 client.Close();
             }
             catch (Exception e)
             {
+                
                 Console.WriteLine(e);
             }
         }
-            
 
+
+        /// <summary>
+        /// Reads a complete message from the network stream.
+        /// </summary>
+        /// <param name="stream">The NetworkStream to read from.</param>
+        /// <returns>A byte array containing the complete message.</returns>
         private byte[] ReadCompleteMessage(NetworkStream stream)
         {
             var buffer = new byte[1024];
@@ -140,6 +107,7 @@ namespace KVLite.Core
                 if (stream.DataAvailable)
                     continue;
 
+                // All data has been read, exit the loop
                 break;
             }
 
@@ -148,32 +116,39 @@ namespace KVLite.Core
 
 
 
-        private Object ProcessRequest(string request)
+        /// <summary>
+        /// Processes the incoming request and performs the corresponding operation.
+        /// </summary>
+        /// <param name="request">The request string to process.</param>
+        /// <returns>An object representing the result of the operation.</returns>
+        private StatusModel ProcessRequest(string request)
         {
             var parser = new InputParser();
             var command = parser.Parse(request);
 
-            if(command.Operation == "SET")
+            if (command.Operation == "SET")
             {
-                this.keyValueStore.Set(command.Key, command.Value.ToString());
-                return $" Key: {command.Key} is SET";
+                double ttl = -1;
+                if(!double.TryParse(command.Ttl, out ttl)) ttl= -1;
+                return this.keyValueStore.Set(command.Key, command.Value.ToString(), ttl);
             }
             else if (command.Operation == "GET")
             {
                 return this.keyValueStore.Get(command.Key);
             }
-            else if(command.Operation == "DELETE")
+            else if (command.Operation == "DELETE")
             {
                 return this.keyValueStore.Delete(command.Key);
             }
             else if (command.Operation == "UPDATE")
             {
-                this.keyValueStore.Update(command.Key, command.Value.ToString());
-                return $" Key: {command.Key} is Updated";
+                return this.keyValueStore.Update(command.Key, command.Value.ToString());
             }
 
-            return "Error";
+            return new StatusModel { Status = StatusConst.Error, Message = "Error"};
+
         }
+
     }
 
 }
