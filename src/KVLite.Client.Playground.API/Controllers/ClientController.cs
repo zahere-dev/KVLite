@@ -6,16 +6,21 @@ using Newtonsoft.Json.Linq;
 namespace KVLite.Client.Playground.API.Controllers
 {
     [Route("api/[controller]")]
-    public class ClientController : Controller
-    {        
+    public class ClientController : Controller, IDisposable
+    {
+        private readonly KVLiteClient _client;
+        public ClientController()
+        {
+            _client = new KVLiteClient();
+        }
 
         [HttpGet]
         [Route("set")]
         public IActionResult Set([FromQuery] string key, string value, string ttl)
         {
-            var client = new KVLiteClient();
-            var res = client.Set(key, value, ttl);
-            client.Dispose();
+            
+            var res = _client.Set(key, value, ttl);
+            
             return Ok(res);
         }
 
@@ -23,9 +28,9 @@ namespace KVLite.Client.Playground.API.Controllers
         [Route("get")]
         public IActionResult Get([FromQuery] string key)
         {
-            var _client = new KVLiteClient();
+            
             var res = _client.Get(key);
-            _client.Dispose();
+            
             return Ok(res);
         }
 
@@ -33,9 +38,9 @@ namespace KVLite.Client.Playground.API.Controllers
         [Route("delete")]
         public IActionResult Delete([FromQuery] string key)
         {
-            var _client = new KVLiteClient();
+            
             var res = _client.Delete(key);
-            _client.Dispose();
+            
             return Ok(res);
         }
 
@@ -43,27 +48,11 @@ namespace KVLite.Client.Playground.API.Controllers
         [Route("update")]
         public IActionResult Update([FromQuery] string key, string value)
         {
-            var _client = new KVLiteClient();
+            
             var res = _client.Update(key, value);
-            _client.Dispose();
+            
             return Ok(res);
         }
-
-        [HttpGet]
-        [Route("bulk-set")]
-        public IActionResult BulkSet()
-        {
-            var _client = new KVLiteClient();
-            _client.BulkSet();
-            _client.Dispose();
-            return Ok("Done");
-
-        }
-
-
-        //public void Dispose()
-        //{
-        //    _client.Dispose();
-        //}
+        
     }
 }
