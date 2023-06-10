@@ -35,7 +35,7 @@ namespace KVLite.Core
             while (true)
             {
                 var client = listener.AcceptTcpClient();
-                HandleClient(client);
+                ClientHandler(client);
             }
             // The server will keep running indefinitely until manually stopped.
             // Make sure to handle any necessary cleanup or termination logic.
@@ -45,7 +45,7 @@ namespace KVLite.Core
         /// Handles the communication with a connected client.
         /// </summary>
         /// <param name="client">The TcpClient representing the connected client.</param>
-        private void HandleClient(TcpClient client)
+        private void ClientHandler(TcpClient client)
         {
             try
             {
