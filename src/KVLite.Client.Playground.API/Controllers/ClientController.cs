@@ -8,12 +8,15 @@ namespace KVLite.Client.Playground.API.Controllers
     [Route("api/[controller]")]
     public class ClientController : Controller
     {
+        
+
         [HttpGet]
         [Route("set")]
         public IActionResult Set([FromQuery] string key, string value)
         {
-            var client = new ClientOps();
+            var client = new KVLiteClient();
             var res = client.Set(key, value);
+            client.Dispose();
             return Ok(res);
         }
 
@@ -21,8 +24,9 @@ namespace KVLite.Client.Playground.API.Controllers
         [Route("get")]
         public IActionResult Get([FromQuery] string key)
         {
-            var client = new ClientOps();
-            var res = client.Get(key);
+            var _client = new KVLiteClient();
+            var res = _client.Get(key);
+            _client.Dispose();
             return Ok(res);
         }
 
@@ -30,8 +34,9 @@ namespace KVLite.Client.Playground.API.Controllers
         [Route("delete")]
         public IActionResult Delete([FromQuery] string key)
         {
-            var client = new ClientOps();
-            var res = client.Delete(key);
+            var _client = new KVLiteClient();
+            var res = _client.Delete(key);
+            _client.Dispose();
             return Ok(res);
         }
 
@@ -39,8 +44,9 @@ namespace KVLite.Client.Playground.API.Controllers
         [Route("update")]
         public IActionResult Update([FromQuery] string key, string value)
         {
-            var client = new ClientOps();
-            var res = client.Update(key, value);
+            var _client = new KVLiteClient();
+            var res = _client.Update(key, value);
+            _client.Dispose();
             return Ok(res);
         }
 
@@ -48,9 +54,17 @@ namespace KVLite.Client.Playground.API.Controllers
         [Route("bulk-set")]
         public IActionResult BulkSet()
         {
-            var client = new ClientOps();
-            client.BulkSet();
+            var _client = new KVLiteClient();
+            _client.BulkSet();
+            _client.Dispose();
             return Ok("Done");
+
         }
+
+
+        //public void Dispose()
+        //{
+        //    _client.Dispose();
+        //}
     }
 }
