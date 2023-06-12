@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KVLite.Core", "KVLite.Core\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KVLite.Tests", "KVLite.Tests\KVLite.Tests.csproj", "{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KVLite.Client", "KVLite.Client\KVLite.Client.csproj", "{39825DF3-B5C7-4C7A-A88F-0F5560D35036}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PlayGround", "PlayGround", "{D975788E-8697-47BE-81DE-7A42AB20BEFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KVLite.Client.Playground.API", "KVLite.Client.Playground.API\KVLite.Client.Playground.API.csproj", "{9B3B2893-E8C4-4737-95DC-06F4C6B9FA19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KVLite.Client.Playground.API", "KVLite.Client.Playground.API\KVLite.Client.Playground.API.csproj", "{9B3B2893-E8C4-4737-95DC-06F4C6B9FA19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KVLite.Client.Playground.API.2", "KVLite.Client.Playground.API.2\KVLite.Client.Playground.API.2.csproj", "{E263FC19-835A-4D03-9166-E2CA8A707A96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,21 +33,21 @@ Global
 		{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45DCEDAF-7E2B-4759-862C-AB6DBCF40BEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39825DF3-B5C7-4C7A-A88F-0F5560D35036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39825DF3-B5C7-4C7A-A88F-0F5560D35036}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39825DF3-B5C7-4C7A-A88F-0F5560D35036}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39825DF3-B5C7-4C7A-A88F-0F5560D35036}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B3B2893-E8C4-4737-95DC-06F4C6B9FA19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B3B2893-E8C4-4737-95DC-06F4C6B9FA19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B3B2893-E8C4-4737-95DC-06F4C6B9FA19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B3B2893-E8C4-4737-95DC-06F4C6B9FA19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E263FC19-835A-4D03-9166-E2CA8A707A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E263FC19-835A-4D03-9166-E2CA8A707A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E263FC19-835A-4D03-9166-E2CA8A707A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E263FC19-835A-4D03-9166-E2CA8A707A96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{39825DF3-B5C7-4C7A-A88F-0F5560D35036} = {D975788E-8697-47BE-81DE-7A42AB20BEFC}
 		{9B3B2893-E8C4-4737-95DC-06F4C6B9FA19} = {D975788E-8697-47BE-81DE-7A42AB20BEFC}
+		{E263FC19-835A-4D03-9166-E2CA8A707A96} = {D975788E-8697-47BE-81DE-7A42AB20BEFC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {69FE7D7C-738F-4868-A4D5-1C016982EA22}

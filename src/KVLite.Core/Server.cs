@@ -14,14 +14,16 @@ namespace KVLite.Core
     public class Server
     {
         private const int Port = 6377;
-
-        private readonly TcpListener listener;
+        private TcpListener listener;
         private readonly KeyValueStore keyValueStore;
+        private bool isRunning;
+        private List<TcpClient> connectedClients;
 
         public Server(KeyValueStore keyValueStore)
         {
             this.keyValueStore = keyValueStore;
             listener = new TcpListener(IPAddress.Any, Port);
+            connectedClients = new List<TcpClient>();
         }
 
         /// <summary>
@@ -29,17 +31,44 @@ namespace KVLite.Core
         /// </summary>
         public void Start()
         {
-            listener.Start();
-            Console.WriteLine($"Server started. Listening on port {Port}...");
+            isRunning = true;
 
-            while (true)
-            {
-                var client = listener.AcceptTcpClient();
-                ClientHandler(client);
-            }
-            // The server will keep running indefinitely until manually stopped.
-            // Make sure to handle any necessary cleanup or termination logic.
+            listener = new TcpListener(IPAddress.Any, Port);
+            listener.Start();
+
+            Console.WriteLine("Server started. Waiting for clients...");
+
+            Task.Run(() => ListenForClients());
+
+            Console.WriteLine($"Server started. Listening on port {Port}...");            
         }
+
+
+        public void Stop()
+        {
+            isRunning = false;
+            listener.Stop();
+
+            // Disconnect all connected clients
+            foreach (TcpClient client in connectedClients)
+            {
+                client.Close();
+            }
+
+            Console.WriteLine("Server stopped.");
+        }
+
+
+        private async Task ListenForClients()
+        {
+            while (isRunning)
+            {
+                TcpClient client = await listener.AcceptTcpClientAsync();
+                connectedClients.Add(client);
+                Console.WriteLine("Client connected: " + client.Client.RemoteEndPoint);
+            }
+        }
+
 
         /// <summary>
         /// Handles the communication with a connected client.
